@@ -4,19 +4,21 @@ buildscript {
     }
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
     }
 }
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
-
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.isuncommon'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
