@@ -1,5 +1,7 @@
-package ucmn.network;
+package uncmn.network;
 
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import rx.Observable;
@@ -139,8 +141,10 @@ public abstract class NetworkRequest<T> {
         return new retrofit2.Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
-                if (response == null || response.body() == null) {
-                    callback.onSuccess(emptyResponse());
+                if (response == null) {
+                    ResponseBody rawBody = ResponseBody.create(MediaType.parse("application/json"), "{}");
+                    Response<T> r = Response.error(400, rawBody);
+                    callback.onSuccess(NetworkResponse.create(r));
                 } else {
                     callback.onSuccess(NetworkResponse.create(response));
                 }
